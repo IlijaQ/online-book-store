@@ -31,3 +31,4 @@ _ReSharper*/
 packages/
 bin/*
 .bin
+wwwroot/lib/*
