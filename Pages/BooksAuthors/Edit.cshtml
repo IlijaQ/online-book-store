@@ -1,0 +1,56 @@
+﻿@page "{id?}"
+@model Online_Book_Store.Pages.BooksAuthors.EditModel
+@{
+}
+
+<h1>Edit</h1>
+
+<h4>BookAuthor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SelectedAuthor" class="control-label"></label>
+                <select asp-for="SelectedAuthor" class="form-control" asp-items="Model.AuthorList"></select>
+            </div>
+            <div class="form-group">
+                <input type="hidden" value="@Model.CurrentBookId" name="CurrentBookId" />
+                <input type="submit" value="Add Author" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+
+</div>
+@foreach (var ba in Model.BookAuthors)
+{
+    @if (ba.BookId == Model.CurrentBookId)
+    {
+        @foreach (var a in Model.Authors)
+        {
+            @if (ba.AuthorId == a.ID)
+            {
+                <div>
+                    @a.ID @a.Name
+                    <br />
+                </div>
+            }
+
+        }
+    }
+}
+<hr />
+<div>
+    <form method="get" action="../Books/Index">
+        <input type="submit" value="Done" class="btn btn-primary" />
+    </form>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

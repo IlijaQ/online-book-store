@@ -17,9 +17,10 @@ namespace Online_Book_Store.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-
+            return RedirectToPage("./Books/Index");
+            //return Page();
         }
     }
 }

@@ -9,40 +9,87 @@
 
 <h4>Book</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Book.Title" class="control-label"></label>
-                <input asp-for="Book.Title" class="form-control" />
-                <span asp-validation-for="Book.Title" class="text-danger"></span>
+
+<!--class="row"-->
+<!--class="col-md-4"-->
+<div>
+
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="d-flex justify-content-between">
+            <div>
+                <!--Levo-->
+                <div class="form-group">
+                    <label asp-for="Book.Title" class="control-label">Title</label>
+                    <input asp-for="Book.Title" class="form-control" />
+                    <span asp-validation-for="Book.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Book.Genre" class="control-label">Genre</label>
+                    <input asp-for="Book.Genre" class="form-control" />
+                    <span asp-validation-for="Book.Genre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Book.Rating" class="control-label">Rating</label>
+                    <input asp-for="Book.Rating" class="form-control" />
+                    <span asp-validation-for="Book.Rating" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Book.Publish_date" class="control-label">Publish date</label>
+                    <input asp-for="Book.Publish_date" class="form-control" />
+                    <span asp-validation-for="Book.Publish_date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Book.Price" class="control-label">Price</label>
+                    <input asp-for="Book.Price" class="form-control" />
+                    <span asp-validation-for="Book.Price" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Book.Genre" class="control-label"></label>
-                <input asp-for="Book.Genre" class="form-control" />
-                <span asp-validation-for="Book.Genre" class="text-danger"></span>
+            <div>
+                <!--Centar-->
+                Select Author:
+                <br />
+                @for (int i = 0; i < Model.AuthorList.Count; i++)
+                {
+                    <input asp-for="@Model.AuthorList[i].Value" type="hidden" />
+                    {
+                        <input asp-for="@Model.AuthorList[i].Selected" /> @Model.AuthorList[i].Text
+                    }
+                    <br />
+                }
             </div>
-            <div class="form-group">
-                <label asp-for="Book.Rating" class="control-label"></label>
-                <input asp-for="Book.Rating" class="form-control" />
-                <span asp-validation-for="Book.Rating" class="text-danger"></span>
+            <div>
+                <!--Desno-->
+                New Author:
+                <br />
+                <div class="form-group">
+                    <label asp-for="NewAuthorName" class="control-label">Name</label>
+                    <input asp-for="NewAuthorName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewAuthorBorn" class="control-label">Born</label>
+                    <input asp-for="NewAuthorBorn" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewAuthorColledge" class="control-label">Colledge</label>
+                    <input asp-for="NewAuthorColledge" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewAuthorUniversity" class="control-label">University</label>
+                    <input asp-for="NewAuthorUniversity" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewAuthorEmail" class="control-label">Email</label>
+                    <input asp-for="NewAuthorEmail" class="form-control" />
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Book.Publish_date" class="control-label"></label>
-                <input asp-for="Book.Publish_date" class="form-control" />
-                <span asp-validation-for="Book.Publish_date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Book.Price" class="control-label"></label>
-                <input asp-for="Book.Price" class="form-control" />
-                <span asp-validation-for="Book.Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+        </div>
+
+        <hr />
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
 </div>
 
 <div>

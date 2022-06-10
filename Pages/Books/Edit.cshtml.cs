@@ -22,6 +22,8 @@ namespace Online_Book_Store.Pages.Books
 
         [BindProperty]
         public Book Book { get; set; }
+        [BindProperty]
+        public IList<SelectListItem> AuthorList { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,7 +32,15 @@ namespace Online_Book_Store.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
+            Book = await _context.Book.Include(m => m.BookAuthor)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            AuthorList = _context.Author.ToList<Author>().Select(a => new SelectListItem
+            {
+                Text = $"{Convert.ToString(a.ID)} {a.Name}",
+                Value = Convert.ToString(a.ID),
+                Selected = Book.BookAuthor.Any(ba => ba.AuthorId == a.ID) ? true : false
+            }).ToList<SelectListItem>();
 
             if (Book == null)
             {
@@ -39,8 +49,7 @@ namespace Online_Book_Store.Pages.Books
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -48,7 +57,48 @@ namespace Online_Book_Store.Pages.Books
                 return Page();
             }
 
-            _context.Attach(Book).State = EntityState.Modified;
+            Book BookFromDB = await _context.Book.Include(znj => znj.BookAuthor)
+                .FirstOrDefaultAsync(znj => znj.ID == Book.ID);
+
+            IList<BookAuthor> bookAuthors = new List<BookAuthor>();
+            IList<BookAuthor> AuthorsToAdd = new List<BookAuthor>();
+            IList<BookAuthor> AuthorsToRemove = new List<BookAuthor>();
+
+            foreach(SelectListItem a in AuthorList)
+            {
+                if (a.Selected)
+                {
+                    bookAuthors.Add(new BookAuthor { BookId = Book.ID, AuthorId = Convert.ToInt32(a.Value) });
+                    BookAuthor selectedAuthor = BookFromDB.BookAuthor
+                        .Where(m => m.BookId == Book.ID && m.AuthorId == Convert.ToInt32(a))
+                        .FirstOrDefault();
+                    if(selectedAuthor == null)
+                    {
+                        AuthorsToAdd.Add(new BookAuthor { BookId = Book.ID, AuthorId = Convert.ToInt32(a) });
+                    }
+
+                }
+            }
+            foreach(BookAuthor ba in BookFromDB.BookAuthor)
+            {
+                if(!bookAuthors.Any(a => a.BookId == ba.BookId && a.AuthorId == ba.AuthorId))
+                {
+                    AuthorsToRemove.Add(ba);
+                }
+            }
+
+            BookFromDB.Title = Book.Title;
+            BookFromDB.Genre = Book.Genre;
+            BookFromDB.Rating = Book.Rating;
+            BookFromDB.Publish_date = Book.Publish_date;
+            BookFromDB.Price = Book.Price;
+
+            _context.RemoveRange(AuthorsToRemove);
+
+            foreach(var a in AuthorsToAdd)
+            {
+                BookFromDB.BookAuthor.Add(a);
+            }
 
             try
             {
