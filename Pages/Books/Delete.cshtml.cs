@@ -21,6 +21,8 @@ namespace Online_Book_Store.Pages.Books
 
         [BindProperty]
         public Book Book { get; set; }
+        public List<BookAuthor> BookAuthor { get; set; }
+        public Book_additional_info BookAdditionalInfo { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,7 +31,13 @@ namespace Online_Book_Store.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
+            Book = await _context.Book
+                .Include(ba => ba.BookAuthor)
+                .ThenInclude(a => a.Author)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
+            
+            
 
             if (Book == null)
             {
@@ -46,10 +54,30 @@ namespace Online_Book_Store.Pages.Books
             }
 
             Book = await _context.Book.FindAsync(id);
+            BookAdditionalInfo = await _context.Book_additional_info.FirstOrDefaultAsync(m => m.Book_ID == id);
+            var bookAuthor = from b in _context.BookAuthor
+                             where b.BookId == id
+                             select b;
+            BookAuthor = await bookAuthor.ToListAsync();
 
             if (Book != null)
             {
                 _context.Book.Remove(Book);
+
+                foreach(var ba in BookAuthor)
+                {
+                    if(Book.ID == ba.BookId)
+                    {
+                        _context.BookAuthor.Remove(ba);
+                    }
+                }
+
+                if(BookAdditionalInfo != null)
+                {
+                    _context.Book_additional_info.Remove(BookAdditionalInfo);
+                }
+
+
                 await _context.SaveChangesAsync();
             }
 

@@ -24,8 +24,8 @@ namespace Online_Book_Store.Pages.Books
         public Book Book { get; set; }
         [BindProperty]
         public IList<SelectListItem> AuthorList { get; set; }
-        //[BindProperty]
-        //public Book_additional_info BookAdditionalInfo { get; set; }
+        [BindProperty]
+        public Book_additional_info BookAddInfo { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -37,6 +37,8 @@ namespace Online_Book_Store.Pages.Books
             Book = await _context.Book
                 .Include(m => m.BookAuthor)
                 .FirstOrDefaultAsync(m => m.ID == id);
+            //
+            BookAddInfo = await _context.Book_additional_info.FirstOrDefaultAsync(bai => bai.Book_ID == id);
 
             AuthorList = _context.Author.ToList<Author>().Select(a => new SelectListItem
             {
@@ -45,7 +47,7 @@ namespace Online_Book_Store.Pages.Books
                 Selected = Book.BookAuthor.Any(ba => ba.AuthorId == a.ID) ? true : false
             }).ToList<SelectListItem>();
 
-            //BookAdditionalInfo = await _context.Book_additional_info.FirstOrDefaultAsync(bai => bai.Book_ID == id);
+            
 
             if (Book == null)
             {
@@ -100,7 +102,7 @@ namespace Online_Book_Store.Pages.Books
             BookFromDB.Publish_date = Book.Publish_date;
             BookFromDB.Price = Book.Price;
 
-           
+            
 
             
             _context.RemoveRange(AuthorsToRemove);

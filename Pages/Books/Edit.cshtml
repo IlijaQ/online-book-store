@@ -23,7 +23,6 @@
                     <span asp-validation-for="Book.Title" class="text-danger"></span>
                 </div>
 
-                <!--Book Additional Info-->
 
                 <div class="form-group">
                     <label asp-for="Book.Genre" class="control-label"></label>
@@ -44,6 +43,21 @@
                     <label asp-for="Book.Price" class="control-label"></label>
                     <input asp-for="Book.Price" class="form-control" />
                     <span asp-validation-for="Book.Price" class="text-danger"></span>
+                </div>
+                <div>
+                    <!--Book Additional Info-->
+                    @if (Model.BookAddInfo == null)
+                    {
+                        <a asp-page="../Book_aditional_info/Create" asp-route-id="@Model.Book.ID">Add Description</a>
+
+                    }
+                    else
+                    {
+                        <div>Description: @Model.BookAddInfo.Description</div>
+                        <br />
+                        <a asp-page="../Book_aditional_info/Edit" asp-route-id="@Model.BookAddInfo.ID">Edit Description</a>
+                    }
+                    
                 </div>
             </div>
             <div>

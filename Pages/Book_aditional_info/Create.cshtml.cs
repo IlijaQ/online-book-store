@@ -21,7 +21,7 @@ namespace Online_Book_Store.Pages.Book_aditional_info
 
         public IActionResult OnGet()
         {
-        ViewData["Book_ID"] = new SelectList(_context.Set<Book>(), "ID", "ID");
+        ViewData["Book_ID"] = new SelectList(_context.Book, "ID", "ID");
             return Page();
         }
 
