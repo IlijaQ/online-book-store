@@ -24,6 +24,8 @@ namespace Online_Book_Store.Pages.Books
         public Book Book { get; set; }
         [BindProperty]
         public IList<SelectListItem> AuthorList { get; set; }
+        //[BindProperty]
+        //public Book_additional_info BookAdditionalInfo { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,7 +34,8 @@ namespace Online_Book_Store.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Book.Include(m => m.BookAuthor)
+            Book = await _context.Book
+                .Include(m => m.BookAuthor)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             AuthorList = _context.Author.ToList<Author>().Select(a => new SelectListItem
@@ -41,6 +44,8 @@ namespace Online_Book_Store.Pages.Books
                 Value = Convert.ToString(a.ID),
                 Selected = Book.BookAuthor.Any(ba => ba.AuthorId == a.ID) ? true : false
             }).ToList<SelectListItem>();
+
+            //BookAdditionalInfo = await _context.Book_additional_info.FirstOrDefaultAsync(bai => bai.Book_ID == id);
 
             if (Book == null)
             {
@@ -57,29 +62,11 @@ namespace Online_Book_Store.Pages.Books
                 return Page();
             }
 
-            Book BookFromDB = await _context.Book.Include(znj => znj.BookAuthor)
+            Book BookFromDB = await _context.Book
+                .Include(znj => znj.BookAuthor)
                 .FirstOrDefaultAsync(znj => znj.ID == Book.ID);
 
-            /*
-            if (!String.IsNullOrEmpty(NewAuthorName))
-            {
-                Author author = new Author { Name = NewAuthorName, Born = NewAuthorBorn, Colledge = NewAuthorColledge, University = NewAuthorUniversity, Email = NewAuthorEmail };
-                await _context.Author.ToListAsync();
-                NewAuthorId = author.ID;
-            }
 
-            Book BookFromDB = await _context.Book.Include(znj => znj.BookAuthor)
-                .FirstOrDefaultAsync(znj => znj.ID == Book.ID);
-
-            IList<BookAuthor> bookAuthors = new List<BookAuthor>();
-            IList<BookAuthor> AuthorsToAdd = new List<BookAuthor>();
-            IList<BookAuthor> AuthorsToRemove = new List<BookAuthor>();
-
-            if (!String.IsNullOrEmpty(NewAuthorName))
-            {
-                AuthorsToAdd.Add(new BookAuthor { BookId = Book.ID, AuthorId = NewAuthorId });
-            }
-            */
             IList<BookAuthor> bookAuthors = new List<BookAuthor>();
             IList<BookAuthor> AuthorsToAdd = new List<BookAuthor>();
             IList<BookAuthor> AuthorsToRemove = new List<BookAuthor>();
@@ -113,12 +100,17 @@ namespace Online_Book_Store.Pages.Books
             BookFromDB.Publish_date = Book.Publish_date;
             BookFromDB.Price = Book.Price;
 
+           
+
+            
             _context.RemoveRange(AuthorsToRemove);
 
             foreach(var a in AuthorsToAdd)
             {
                 BookFromDB.BookAuthor.Add(a);
             }
+
+
 
             try
             {
@@ -143,5 +135,6 @@ namespace Online_Book_Store.Pages.Books
         {
             return _context.Book.Any(e => e.ID == id);
         }
+       
     }
 }

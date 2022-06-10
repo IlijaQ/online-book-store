@@ -22,6 +22,9 @@
                     <input asp-for="Book.Title" class="form-control" />
                     <span asp-validation-for="Book.Title" class="text-danger"></span>
                 </div>
+
+                <!--Book Additional Info-->
+
                 <div class="form-group">
                     <label asp-for="Book.Genre" class="control-label"></label>
                     <input asp-for="Book.Genre" class="form-control" />
@@ -45,7 +48,9 @@
             </div>
             <div>
                 <!--Desno-->
-                Authors:
+                <a asp-page="../Authors/Create">Add New Author</a>
+                <br />
+                Existing Authors:
                 <br />
                 @for (int i = 0; i < Model.AuthorList.Count; i++)
                 {

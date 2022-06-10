@@ -28,7 +28,9 @@ namespace Online_Book_Store.Pages.Books
                 return NotFound();
             }
 
-            Book = await _context.Book.Include(ba => ba.BookAuthor)
+            Book = await _context.Book
+                .Include(bai => bai.Book_additional_info)
+                .Include(ba => ba.BookAuthor)
                 .ThenInclude(a => a.Author)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);

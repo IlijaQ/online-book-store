@@ -25,6 +25,8 @@ namespace Online_Book_Store.Pages.Books
         public Book Book { get; set; }
         [BindProperty]
         public IList<SelectListItem> AuthorList { get; set; }
+        [BindProperty]
+        public Book_additional_info BookAdditionalInfo { get; set; }
 
         //properties for new author if needed
         [BindProperty]
@@ -42,6 +44,7 @@ namespace Online_Book_Store.Pages.Books
         public IActionResult OnGet()
         {
             AuthorList = _context.Author.ToList<Author>().Select(al => new SelectListItem { Text = $"{al.ID.ToString()} {al.Name}", Value = al.ID.ToString() }).ToList<SelectListItem>();
+            
             return Page();
         }
 
@@ -72,8 +75,18 @@ namespace Online_Book_Store.Pages.Books
             }
 
             Book.BookAuthor = BookAuthors;
+            
+
+            if (!String.IsNullOrEmpty(BookAdditionalInfo.Description))
+            {
+                Book_additional_info bookAdditionalInfo = new Book_additional_info { Description = BookAdditionalInfo.Description };
+                Book.Book_additional_info = bookAdditionalInfo;
+            }
+
             _context.Book.Add(Book);
             await _context.SaveChangesAsync();
+
+
 
             return RedirectToPage("./Index");
         }
