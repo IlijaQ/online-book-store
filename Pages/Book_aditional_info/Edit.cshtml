@@ -1,11 +1,11 @@
 ﻿@page
-@model Online_Book_Store.Pages.Book_aditional_info.CreateModel
+@model Online_Book_Store.Pages.Book_aditional_info.EditModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
 <h4>Book_additional_info</h4>
 <hr />
@@ -13,27 +13,23 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <!--
-            <div class="form-group">
-                <label asp-for="Book_additional_info.Book_ID" class="control-label"></label>
-                <select asp-for="Book_additional_info.Book_ID" class ="form-control" asp-items="ViewBag.Book_ID"></select>
-            </div>
-            -->
+                <input type="hidden" asp-for="Book_additional_info.ID" />
+                <input type="hidden" asp-for="Book_additional_info.Book_ID" />
+
             <div class="form-group">
                 <label asp-for="Book_additional_info.Description" class="control-label"></label>
                 <input asp-for="Book_additional_info.Description" class="form-control" />
                 <span asp-validation-for="Book_additional_info.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="hidden" asp-for="@Model.SomeNumber" />
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="../Books/Index">Back to List</a>
 </div>
 
 @section Scripts {

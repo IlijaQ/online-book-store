@@ -37,7 +37,7 @@ namespace Online_Book_Store.Pages.Books
             Book = await _context.Book
                 .Include(m => m.BookAuthor)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            //
+
             BookAddInfo = await _context.Book_additional_info.FirstOrDefaultAsync(bai => bai.Book_ID == id);
 
             AuthorList = _context.Author.ToList<Author>().Select(a => new SelectListItem

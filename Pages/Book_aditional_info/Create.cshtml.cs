@@ -18,29 +18,29 @@ namespace Online_Book_Store.Pages.Book_aditional_info
         {
             _context = context;
         }
+        [BindProperty]
+        public int SomeNumber { get; set; }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int? id)
         {
-        ViewData["Book_ID"] = new SelectList(_context.Book, "ID", "ID");
+            SomeNumber = (int)id;
             return Page();
         }
 
         [BindProperty]
         public Book_additional_info Book_additional_info { get; set; }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
+            Book_additional_info.Book_ID = SomeNumber;
             _context.Book_additional_info.Add(Book_additional_info);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("../Books/Index");
         }
     }
 }
