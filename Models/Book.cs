@@ -20,6 +20,6 @@ namespace Online_Book_Store.Models
         [ForeignKey("BookId")]
         public virtual ICollection<BookAuthor> BookAuthor { get; set; }
         //navigational property to Book_additional_info
-        public virtual Book_additional_info BookAddInfo { get; set; }
+        public virtual Book_additional_info Book_additional_info { get; set; }
     }
 }
