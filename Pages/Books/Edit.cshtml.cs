@@ -60,6 +60,26 @@ namespace Online_Book_Store.Pages.Books
             Book BookFromDB = await _context.Book.Include(znj => znj.BookAuthor)
                 .FirstOrDefaultAsync(znj => znj.ID == Book.ID);
 
+            /*
+            if (!String.IsNullOrEmpty(NewAuthorName))
+            {
+                Author author = new Author { Name = NewAuthorName, Born = NewAuthorBorn, Colledge = NewAuthorColledge, University = NewAuthorUniversity, Email = NewAuthorEmail };
+                await _context.Author.ToListAsync();
+                NewAuthorId = author.ID;
+            }
+
+            Book BookFromDB = await _context.Book.Include(znj => znj.BookAuthor)
+                .FirstOrDefaultAsync(znj => znj.ID == Book.ID);
+
+            IList<BookAuthor> bookAuthors = new List<BookAuthor>();
+            IList<BookAuthor> AuthorsToAdd = new List<BookAuthor>();
+            IList<BookAuthor> AuthorsToRemove = new List<BookAuthor>();
+
+            if (!String.IsNullOrEmpty(NewAuthorName))
+            {
+                AuthorsToAdd.Add(new BookAuthor { BookId = Book.ID, AuthorId = NewAuthorId });
+            }
+            */
             IList<BookAuthor> bookAuthors = new List<BookAuthor>();
             IList<BookAuthor> AuthorsToAdd = new List<BookAuthor>();
             IList<BookAuthor> AuthorsToRemove = new List<BookAuthor>();
@@ -70,11 +90,11 @@ namespace Online_Book_Store.Pages.Books
                 {
                     bookAuthors.Add(new BookAuthor { BookId = Book.ID, AuthorId = Convert.ToInt32(a.Value) });
                     BookAuthor selectedAuthor = BookFromDB.BookAuthor
-                        .Where(m => m.BookId == Book.ID && m.AuthorId == Convert.ToInt32(a))
+                        .Where(m => m.AuthorId == Convert.ToInt32(a.Value))
                         .FirstOrDefault();
                     if(selectedAuthor == null)
                     {
-                        AuthorsToAdd.Add(new BookAuthor { BookId = Book.ID, AuthorId = Convert.ToInt32(a) });
+                        AuthorsToAdd.Add(new BookAuthor { BookId = Book.ID, AuthorId = Convert.ToInt32(a.Value) });
                     }
 
                 }
