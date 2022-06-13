@@ -22,6 +22,10 @@ namespace Online_Book_Store.Pages.Book_aditional_info
 
         [BindProperty]
         public Book_additional_info Book_additional_info { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string BookTitle { get; set; }
+        public bool ChangesMade { get; set; } = false;
+        public bool DeletedDesc { get; set; } = false;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -41,7 +45,7 @@ namespace Online_Book_Store.Pages.Book_aditional_info
             return Page();
         }
 
-        public async Task<IActionResult> OnPostCtrlSAsync()
+        public async Task<IActionResult> OnPostSaveAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -66,7 +70,8 @@ namespace Online_Book_Store.Pages.Book_aditional_info
                 }
             }
 
-            return RedirectToPage("../Books/Index");
+            ChangesMade = true;
+            return Page();
         }
 
         private bool Book_additional_infoExists(int id)
@@ -74,12 +79,13 @@ namespace Online_Book_Store.Pages.Book_aditional_info
             return _context.Book_additional_info.Any(e => e.ID == id);
         }
 
-        public async Task<IActionResult> OnPostShiftDelAsync()
+        public async Task<IActionResult> OnPostDeleteAsync()
         {
             _context.Book_additional_info.Remove(Book_additional_info);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("../Books/Index");
+            DeletedDesc = true;
+            return Page();
         }
     }
 }

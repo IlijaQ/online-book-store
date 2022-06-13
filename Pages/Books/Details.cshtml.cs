@@ -20,6 +20,8 @@ namespace Online_Book_Store.Pages.Books
         }
 
         public Book Book { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int? ReturnId { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

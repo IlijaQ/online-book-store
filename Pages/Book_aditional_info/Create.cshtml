@@ -5,36 +5,45 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>Book_additional_info</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <!--
-            <div class="form-group">
-                <label asp-for="Book_additional_info.Book_ID" class="control-label"></label>
-                <select asp-for="Book_additional_info.Book_ID" class ="form-control" asp-items="ViewBag.Book_ID"></select>
-            </div>
-            -->
-            <div class="form-group">
-                <label asp-for="Book_additional_info.Description" class="control-label"></label>
-                <input asp-for="Book_additional_info.Description" class="form-control" />
-                <span asp-validation-for="Book_additional_info.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="hidden" asp-for="@Model.SomeNumber" />
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+@if (!Model.DescCreated)
+{
+    <p>Add @Model.BookTitle description</p>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Book_additional_info.Description" class="control-label"></label>
+                    <input asp-for="Book_additional_info.Description" class="form-control" />
+                    <span asp-validation-for="Book_additional_info.Description" class="text-danger"></span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <input type="hidden" asp-for="@Model.ReturnId" />
+                        <input type="submit" value="Add Description" class="btn btn-outline-warning" />
+                    </div>
+                    <div>
+                        <a asp-page="../Books/Edit" asp-route-id="@Model.ReturnId" class="btn btn-outline-warning">Back</a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
+}
+else
+{
+    <p class="text-success">Description Successfully Added</p>
+    <hr />
+    <a asp-page="../Books/Edit" asp-route-id="@Model.ReturnId" class="btn btn-outline-warning">Back</a>
+}
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

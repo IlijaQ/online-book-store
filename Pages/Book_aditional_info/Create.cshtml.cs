@@ -18,12 +18,15 @@ namespace Online_Book_Store.Pages.Book_aditional_info
         {
             _context = context;
         }
-        [BindProperty]
-        public int SomeNumber { get; set; }
 
-        public IActionResult OnGet(int? id)
+        [BindProperty(SupportsGet = true)]
+        public int ReturnId { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string BookTitle { get; set; }
+        public bool DescCreated { get; set; } = false;
+
+        public IActionResult OnGet()
         {
-            SomeNumber = (int)id;
             return Page();
         }
 
@@ -36,11 +39,12 @@ namespace Online_Book_Store.Pages.Book_aditional_info
             {
                 return Page();
             }
-            Book_additional_info.Book_ID = SomeNumber;
+            Book_additional_info.Book_ID = ReturnId;
             _context.Book_additional_info.Add(Book_additional_info);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("../Books/Index");
+            DescCreated = true;
+            return Page();
         }
     }
 }

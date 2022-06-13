@@ -5,34 +5,59 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
 
-<h4>Book_additional_info</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+@if (Model.DeletedDesc)
+{
+    <p class="text-danger">Description Removed</p>
+    <hr />
+    <a asp-page="../Books/Edit" asp-route-id="@Model.Book_additional_info.Book_ID" class="btn btn-outline-warning">Back</a>
+}
+else
+{
+    @if (Model.ChangesMade)
+    {
+        <p class="text-success">Saved Successfully</p>
+    }
+    else
+    {
+        <p>Edit @Model.BookTitle description</p>
+    }
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Book_additional_info.ID" />
                 <input type="hidden" asp-for="Book_additional_info.Book_ID" />
 
-            <div class="form-group">
-                <label asp-for="Book_additional_info.Description" class="control-label"></label>
-                <input asp-for="Book_additional_info.Description" class="form-control" />
-                <span asp-validation-for="Book_additional_info.Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" asp-page-handler="CtrlS" class="btn btn-primary" />
-                <br />
-                <input type="submit" value="Delete" asp-page-handler="ShiftDel" class="btn btn-danger" />
-            </div>
-        </form>
-    </div>
-</div>
+                <div class="form-group">
+                    <label asp-for="Book_additional_info.Description" class="control-label"></label>
+                    <input asp-for="Book_additional_info.Description" class="form-control" />
+                    <span asp-validation-for="Book_additional_info.Description" class="text-danger"></span>
 
-<div>
-    <a asp-page="../Books/Index">Back to List</a>
-</div>
+                    <br />
+                    <input type="submit" value="Remove Description" asp-page-handler="Delete" class="btn btn-outline-secondary" />
+                </div>
+
+                <br />
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <input type="submit" value="Save Changes" asp-page-handler="Save" class="btn btn-outline-warning" />
+                    </div>
+                    <div>
+                        <a asp-page="../Books/Edit" asp-route-id="@Model.Book_additional_info.Book_ID" class="btn btn-outline-warning">Back</a>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+}
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

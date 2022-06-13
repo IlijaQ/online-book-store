@@ -71,12 +71,24 @@
             @Model.Book.Book_additional_info.Description
         </p>
     }
+
+
 </div>
 
 
 <hr />
 <div class="d-flex justify-content-between">
-    <div><a asp-page="./Index" class="btn btn-primary bg-warning">Back to List</a></div>
+    <div>
+        @if (Model.ReturnId == null)
+        {
+            <a asp-page="./Index" class="btn btn-primary bg-warning">Back to List</a>
+        }
+        else
+        {
+            <a asp-page="../Authors/Details" asp-route-id="@Model.ReturnId" class="btn btn-primary bg-warning">Back to Author</a>
+        }
+    </div>
+    
     <div>
         <a asp-page="./Edit" asp-route-id="@Model.Book.ID" class="btn btn-primary bg-warning">Edit</a>
         <a asp-page="./Delete" asp-route-id="@Model.Book.ID" class="btn btn-primary bg-danger">Delete</a>

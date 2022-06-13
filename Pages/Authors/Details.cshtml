@@ -68,7 +68,7 @@
             string PublishDate = b.Publish_date.ToString("dd.MM.yyyy");
             
             <div>
-                <a asp-page="../Books/Details" asp-route-id="@b.ID" class="d-flex linkModifier">
+                <a asp-page="../Books/Details" asp-route-id="@b.ID" asp-route-ReturnId="@Model.Author.ID" class="d-flex linkModifier">
                     <div style="flex: 0 0 5%" class="text-center font-weight-bold">@b.ID</div>
                     <div style="flex: 0 0 45%">@b.Title</div>
                     <div style="flex: 0 0 20%">@b.Genre</div>
