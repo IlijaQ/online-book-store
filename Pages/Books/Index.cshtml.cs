@@ -31,7 +31,7 @@ namespace Online_Book_Store.Pages.Books
         public string SearchAuthor { get; set; }
         //
         [BindProperty(SupportsGet = true)]
-        public string SortParametar { get; set; }
+        public string SortParametar { get; set; } = "ID";
         [BindProperty(SupportsGet = true)]
         public string SortOrder { get; set; } = "Asc";
         
@@ -68,7 +68,7 @@ namespace Online_Book_Store.Pages.Books
                     case "ID": books = books.OrderByDescending(m => m.ID); break;
                     case "Title": books = books.OrderBy(m => m.Title); break;
                     case "Genre": books = books.OrderBy(m => m.Genre).ThenBy(m => m.Title); break;
-                    case "Publish Date": books = books.OrderBy(m => m.Publish_date); break;
+                    case "Publish Date": books = books.OrderByDescending(m => m.Publish_date); break;
                     case "Rating": books = books.OrderByDescending(m => m.Rating); break;
                     case "Price": books = books.OrderByDescending(m => m.Price); break;
                 }
@@ -80,7 +80,7 @@ namespace Online_Book_Store.Pages.Books
                     case "ID": books = books.OrderBy(m => m.ID); break;
                     case "Title": books = books.OrderByDescending(m => m.Title); break;
                     case "Genre": books = books.OrderByDescending(m => m.Genre).ThenBy(m => m.Title); break;
-                    case "Publish Date": books = books.OrderByDescending(m => m.Publish_date); break;
+                    case "Publish Date": books = books.OrderBy(m => m.Publish_date); break;
                     case "Rating": books = books.OrderBy(m => m.Rating); break;
                     case "Price": books = books.OrderBy(m => m.Price); break;
 
