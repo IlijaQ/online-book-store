@@ -16,20 +16,77 @@
     <div>
         <a asp-page="Create">Create New</a>
     </div>
-    <div>
-
-        @if (!Model.MoreInfo)
-        {
-            <a asp-page="./Index" asp-route-MoreInfo="true">More info</a>
-        }
-        else
-        {
-            <a asp-page="./Index" asp-route-MoreInfo="false">Less info</a>
-        }
-
-    </div>
+    
     
 </div>
+<div>
+</div>
+<div>
+    <!--sortiranje-->
+    <div>
+        <form>
+            <br />
+            <label asp-for="SortParametar">Sort by:</label>
+            <select asp-for="SortParametar" onchange="this.form.submit();">
+                <option vlaue="ID">ID</option>
+                <option vlaue="Title">Title</option>
+                <option vlaue="Genre">Genre</option>
+                <option vlaue="Publish Date">Publish Date</option>
+                <option vlaue="Rating">Rating</option>
+                <option vlaue="Price">Price</option>
+            </select>
+
+            <select asp-for="SortOrder" onchange="this.form.submit();">
+                <option vlaue="Asc">Asc</option>
+                <option vlaue="Desc">Desc</option>
+            </select>
+
+            <input asp-for="MoreInfo" onchange="this.form.submit();" />
+            
+            <label asp-for="MoreInfo">MoreInfo</label>
+            
+
+            <br />
+        </form>
+    </div>
+    <div>
+        <form>
+            <label asp-for="SelectedGenre">Genre</label>
+            <select asp-for="SelectedGenre" asp-items="@Model.GenreList" onchange="this.form.submit();">
+                <option value="">All</option>
+            </select>
+        </form>
+    </div>
+
+
+
+
+    <!--pretraga-->
+
+    <br />
+    <div>
+        <form>
+
+            <label asp-for="SearchString">Search book:</label>
+            <input asp-for="SearchString" onchange="this.form.submit();" />
+            <input type="submit" value="Search" />
+
+        </form>
+    </div>
+    <br />
+    <div>
+        <form>
+
+            <label asp-for="SearchAuthor">Search Author:</label>
+            <input asp-for="SearchAuthor" onchange="this.form.submit();" />
+
+            <input type="submit" value="Search" />
+        </form>
+    </div>
+</div>
+
+<br />
+
 
 <div class="d-flex bg-warning">
     <!--nazivi kolona-->
@@ -48,8 +105,9 @@
         <div style="flex: 0 0 5%" class="text-light">rating</div>
     }
     <div style="flex: 0 0 10%">Price</div>
-
 </div>
+
+
 
 
 <table>
@@ -58,7 +116,6 @@
     {
         string Authors = " ";
         Authors = String.Join(", ", b.BookAuthor.Select(a => a.Author.Name));
-
 
         <tr>
 
@@ -81,7 +138,6 @@
                     <div style="flex: 0 0 5%" class="text-success text-center">@b.Rating</div>
                 }
                 <div style="flex: 0 0 5%" class="text-danger text-center">@b.Price</div>
-
             </a>
         </tr>
 

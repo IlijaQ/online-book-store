@@ -5,11 +5,18 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="jumbotron p-2 d-flex justify-content-between">
+    <h1 class="display-4">@Model.Book.Title</h1>
+    <div>
+        @foreach (var s in Model.Book.BookAuthor.Select(a => a.Author))
+        {
+                <a asp-page="../Authors/Details" asp-route-id="@s.ID" class="text-warning linkModifier">@s.Name</a>
+                <br />
+        }
+    </div>
+</div>
 
 <div>
-    <h4>Book</h4>
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Book.ID)
@@ -17,45 +24,40 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Book.ID)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Book.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Book.Book_additional_info.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.Book_additional_info.Description)
-        </dd>
-        <dt class="col-sm-2">
-            Authors
-        </dt>
-        <dd class="col-sm-10">
-            @{ string Authors = " ";
-                Authors = String.Join(", ", Model.Book.BookAuthor.Select(a => a.Author.Name));
-            }
-            <span>@Authors</span>
-        </dd>
+        <!------------------------------------------------------>
+        @if (Model.Book.Book_additional_info != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Book.Book_additional_info.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Book.Book_additional_info.Description)
+            </dd>
+        }
+        <!------------------------------------------------------>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Book.Genre)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Book.Genre)
         </dd>
+        <!------------------------------------------------------>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Book.Rating)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Book.Rating)
         </dd>
+        <!------------------------------------------------------>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Book.Publish_date)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.Publish_date)
+            @{string Date = Model.Book.Publish_date.ToString("dd.MM.yyyy");
+                }
+            @Date
         </dd>
+        <!------------------------------------------------------>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Book.Price)
         </dt>
@@ -64,7 +66,14 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Book.ID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+
+
+<hr />
+<div class="d-flex justify-content-between">
+    <div><a asp-page="./Index" class="btn btn-primary bg-warning">Back to List</a></div>
+    <div>
+        <a asp-page="./Edit" asp-route-id="@Model.Book.ID" class="btn btn-primary bg-warning">Edit</a>
+        <a asp-page="./Delete" asp-route-id="@Model.Book.ID" class="btn btn-primary bg-danger">Delete</a>
+    </div>
+    
 </div>
