@@ -26,8 +26,8 @@
                     <select asp-for="SortOrder" onchange="this.form.submit();">
                         @if ((Model.SortParametar.Equals("Title") || Model.SortParametar.Equals("Genre")))
                         {
-                            <option value="Asc">Z - A</option>
-                            <option value="Desc">A - Z</option>
+                            <option value="Asc">A - Z</option>
+                            <option value="Desc">Z - A</option>
                         }
                         else if (Model.SortParametar.Equals("Publish Date"))
                         {

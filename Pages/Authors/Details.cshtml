@@ -91,7 +91,9 @@
 
 
 <div class="d-flex justify-content-between">
-    <div><a asp-page="./Index" class="btn btn-primary bg-warning">Back to List</a></div>
+    <div>
+        <a asp-page="./Index" class="btn btn-primary bg-warning">Back to List</a>
+    </div>
     <div>
         <a asp-page="./Edit" asp-route-id="@Model.Author.ID" class="btn btn-warning">Edit</a>
         @if (Model.Author.BookAuthor.Any())

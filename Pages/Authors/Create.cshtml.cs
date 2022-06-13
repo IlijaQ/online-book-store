@@ -26,9 +26,10 @@ namespace Online_Book_Store.Pages.Authors
 
         [BindProperty]
         public Author Author { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int? ReturnId { get; set; }//helps navigate back if came from Books.Edit
+        public bool AuthorCreated { get; set; } = false;
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -39,7 +40,17 @@ namespace Online_Book_Store.Pages.Authors
             _context.Author.Add(Author);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            if(ReturnId == null)
+            {
+                return RedirectToPage("./Index");
+
+            }
+            else
+            {
+                AuthorCreated = true;
+                return Page();
+            }
+            
         }
     }
 }
