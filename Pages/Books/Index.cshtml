@@ -4,72 +4,89 @@
 @{
     ViewData["Title"] = "Index";
 }
+<link rel="stylesheet" type="text/css" href="@Url.Content("Online_Book_Store/wwwroot/css/site.css")"/>
 
-<h1>Index</h1>
+<div class="jumbotron d-flex justify-content-between">
+    <h1 class="display-3">Our Library</h1>
+    <div>
+        <h2>znj</h2>
+    </div>
+</div>
+<div class="d-flex justify-content-between">
+    <div>
+        <a asp-page="Create">Create New</a>
+    </div>
+    <div>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
+        @if (!Model.MoreInfo)
+        {
+            <a asp-page="./Index" asp-route-MoreInfo="true">More info</a>
+        }
+        else
+        {
+            <a asp-page="./Index" asp-route-MoreInfo="false">Less info</a>
+        }
+
+    </div>
+    
+</div>
+
+<div class="d-flex bg-warning">
+    <!--nazivi kolona-->
+    <div style="flex: 0 0 5%" class="text-white text-center">ID</div>
+    @if (!Model.MoreInfo)
+    {
+        <div style="flex: 0 0 50%">Title</div>
+        <div style="flex: 0 0 41%">Authors</div>
+    }
+    else
+    {
+        <div style="flex: 0 0 37%">Title</div>
+        <div style="flex: 0 0 30%">Authors</div>
+        <div style="flex: 0 0 10%" class="text-light">Genre</div>
+        <div style="flex: 0 0 9%" class="text-light">publish date</div>
+        <div style="flex: 0 0 5%" class="text-light">rating</div>
+    }
+    <div style="flex: 0 0 10%">Price</div>
+
+</div>
+
+
+<table>
+    <!--podaci-->
+    @foreach (Models.Book b in Model.Book)
+    {
+        string Authors = " ";
+        Authors = String.Join(", ", b.BookAuthor.Select(a => a.Author.Name));
+
+
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Title)
-            </th>
-            <th>
-                Authors
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Genre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Publish_date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Price)
-            </th>
-            <th></th>
+
+            <a asp-page="./Details" asp-route-id="@b.ID" class="d-flex linkModifier">
+
+                <div style="flex: 0 0 5%" class="text-center font-weight-bold">@b.ID</div>
+                @if (!Model.MoreInfo)
+                {
+                    <div style="flex: 0 0 50%">@b.Title</div>
+                    <div style="flex: 0 0 40%">@Authors</div>
+                }
+                else
+                {
+                    string Date = @b.Publish_date.ToString("dd.MM.yyyy");
+
+                    <div style="flex: 0 0 37%" class="book">@b.Title</div>
+                    <div style="flex: 0 0 30%">@Authors</div>
+                    <div style="flex: 0 0 10%">@b.Genre</div>
+                    <div style="flex: 0 0 8%" class="text-center">@Date</div>
+                    <div style="flex: 0 0 5%" class="text-success text-center">@b.Rating</div>
+                }
+                <div style="flex: 0 0 5%" class="text-danger text-center">@b.Price</div>
+
+            </a>
         </tr>
-    </thead>
-    <tbody>
-@foreach (var b in Model.Book) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => b.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => b.Title)
-            </td>
-            <td>
-                @{ string Authors = " ";
-                    Authors = String.Join(", ", b.BookAuthor.Select(a => a.Author.Name));
-                  }
-                <span>@Authors</span>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => b.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => b.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => b.Publish_date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => b.Price)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@b.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@b.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@b.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+
+
+    }
+
+
 </table>

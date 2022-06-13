@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Online_Book_Store.Data;
 using Online_Book_Store.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Online_Book_Store.Pages.Books
 {
@@ -20,7 +21,8 @@ namespace Online_Book_Store.Pages.Books
         }
 
         public IList<Book> Book { get;set; }
-
+        [BindProperty(SupportsGet = true)]
+        public bool MoreInfo { get; set; } = false;
         public async Task OnGetAsync()
         {
             Book = await _context.Book

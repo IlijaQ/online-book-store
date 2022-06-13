@@ -41,7 +41,7 @@ namespace Online_Book_Store.Pages.Book_aditional_info
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostCtrlSAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -72,6 +72,14 @@ namespace Online_Book_Store.Pages.Book_aditional_info
         private bool Book_additional_infoExists(int id)
         {
             return _context.Book_additional_info.Any(e => e.ID == id);
+        }
+
+        public async Task<IActionResult> OnPostShiftDelAsync()
+        {
+            _context.Book_additional_info.Remove(Book_additional_info);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("../Books/Index");
         }
     }
 }

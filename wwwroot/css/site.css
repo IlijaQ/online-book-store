@@ -74,7 +74,17 @@ body {
     color: lightslategray;
     font-size: 12px;
     text-align: center;
-    position: absoute;
+    position: absolute;
     bottom: 45px;
     object-position: center;
+}
+
+.linkModifier {
+    color: black;
+}
+
+.linkModifier:hover {
+    text-decoration: none;
+    color: white;
+    background-color: green;
 }
