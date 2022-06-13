@@ -6,13 +6,16 @@
 }
 
 <div class="jumbotron p-2 d-flex justify-content-between">
-    <h1 class="display-4">@Model.Book.Title</h1>
-    <div>
+    <h1 class="display-4" style="flex: 0 0 80%">@Model.Book.Title</h1>
+    <div style="flex: 0 0 20%">
+        <br />
         @foreach (var s in Model.Book.BookAuthor.Select(a => a.Author))
         {
+            <div class="d-flex justify-content-center">
                 <a asp-page="../Authors/Details" asp-route-id="@s.ID" class="text-warning linkModifier">@s.Name</a>
-                <br />
-        }
+            </div>
+            <br />
+         }    
     </div>
 </div>
 
@@ -25,16 +28,7 @@
             @Html.DisplayFor(model => model.Book.ID)
         </dd>
         <!------------------------------------------------------>
-        @if (Model.Book.Book_additional_info != null)
-        {
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Book.Book_additional_info.Description)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Book.Book_additional_info.Description)
-            </dd>
-        }
-        <!------------------------------------------------------>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Book.Genre)
         </dt>
@@ -42,6 +36,7 @@
             @Html.DisplayFor(model => model.Book.Genre)
         </dd>
         <!------------------------------------------------------>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Book.Rating)
         </dt>
@@ -49,15 +44,17 @@
             @Html.DisplayFor(model => model.Book.Rating)
         </dd>
         <!------------------------------------------------------>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Book.Publish_date)
         </dt>
         <dd class="col-sm-10">
             @{string Date = Model.Book.Publish_date.ToString("dd.MM.yyyy");
-                }
+            }
             @Date
         </dd>
         <!------------------------------------------------------>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Book.Price)
         </dt>
@@ -65,6 +62,15 @@
             @Html.DisplayFor(model => model.Book.Price)
         </dd>
     </dl>
+    <!---------------------------------------------------------->
+
+    @if (Model.Book.Book_additional_info != null)
+    {
+        <hr />
+        <p>
+            @Model.Book.Book_additional_info.Description
+        </p>
+    }
 </div>
 
 

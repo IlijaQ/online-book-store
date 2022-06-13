@@ -5,10 +5,10 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="jumbotron p-0 d-flex justify-content-between">
+    <h1 class="display-4 text-warning">Add Author</h1>
+</div>
 
-<h4>Author</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
@@ -38,16 +38,22 @@
                 <input asp-for="Author.Email" class="form-control" />
                 <span asp-validation-for="Author.Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+            <hr />
+            <div class="d-flex justify-content-between">
+                <div class="form-group">
+                    <input type="submit" value="Add Author" class="btn btn-warning" />
+                </div>
+                <div>
+                    <a asp-page="Index" class="btn btn-outline-warning">Back to List</a>
+                </div>
             </div>
+
+
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

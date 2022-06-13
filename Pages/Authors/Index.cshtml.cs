@@ -20,10 +20,23 @@ namespace Online_Book_Store.Pages.Authors
         }
 
         public IList<Author> Author { get;set; }
+        [BindProperty(SupportsGet = true)]
+        public string SearchString { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public bool Unassigned { get; set; } = true;
 
         public async Task OnGetAsync()
         {
-            Author = await _context.Author.ToListAsync();
+            var authors = _context.Author
+                .Include(ba => ba.BookAuthor)
+                .AsNoTracking();
+
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                authors = authors.Where(a => a.Name.Contains(SearchString));
+            }
+
+            Author = await authors.ToListAsync();
         }
     }
 }

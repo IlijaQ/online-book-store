@@ -20,6 +20,9 @@ namespace Online_Book_Store.Pages.Authors
         }
 
         public Author Author { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public bool DeleteAttempt { get; set; } = false;
+
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,7 +31,12 @@ namespace Online_Book_Store.Pages.Authors
                 return NotFound();
             }
 
-            Author = await _context.Author.FirstOrDefaultAsync(m => m.ID == id);
+            var author = _context.Author.Include(ba => ba.BookAuthor)
+                .ThenInclude(b => b.Book)
+                .AsNoTracking();
+
+
+            Author = await author.FirstOrDefaultAsync(m => m.ID == id);
 
             if (Author == null)
             {

@@ -19,7 +19,8 @@ namespace Online_Book_Store.Pages
 
         public IActionResult OnGet()
         {
-            return RedirectToPage("./Books/Index");
+            //return RedirectToPage("./Books/Index");
+            return RedirectToPage("./Authors/Index");
             //return Page();
         }
     }

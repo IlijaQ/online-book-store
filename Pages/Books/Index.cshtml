@@ -5,106 +5,98 @@
     ViewData["Title"] = "Index";
 }
 
+<div class="bg-white sticky-top">
+    <div class="jumbotron d-flex justify-content-between">
+        <h1 class="display-3">Our Library</h1>
+        <form>
+            <div class="d-flex justify-content-end">
+                <div>
+                    <!--sortiranje-->
+                    <label asp-for="SortParametar">Sort by:</label>
+                    <br />
+                    <select asp-for="SortParametar" onchange="this.form.submit();">
+                        <option value="ID">ID</option>
+                        <option value="Title">Title</option>
+                        <option value="Genre">Genre</option>
+                        <option value="Publish Date">Publish Date</option>
+                        <option value="Rating">Rating</option>
+                        <option value="Price">Price</option>
+                    </select>
+                    <br />
+                    <select asp-for="SortOrder" onchange="this.form.submit();">
+                        @if ((Model.SortParametar.Equals("Title") || Model.SortParametar.Equals("Genre")))
+                        {
+                            <option value="Asc">Z - A</option>
+                            <option value="Desc">A - Z</option>
+                        }
+                        else if (Model.SortParametar.Equals("Publish Date"))
+                        {
+                            <option value="Asc">Fwd</option>
+                            <option value="Desc">Back</option>
+                        }
+                        else
+                        {
+                            <option value="Asc">Asc</option>
+                            <option value="Desc">Desc</option>
+                        }
+                    </select>
+                </div>
 
-<div class="jumbotron d-flex justify-content-between">
-    <h1 class="display-3">Our Library</h1>
-    <form>
-        <div class="d-flex justify-content-end">
-            <div>
-                <!--sortiranje-->
-                <label asp-for="SortParametar">Sort by:</label>
-                <br />
-                <select asp-for="SortParametar" onchange="this.form.submit();">
-                    <option value="ID">ID</option>
-                    <option value="Title">Title</option>
-                    <option value="Genre">Genre</option>
-                    <option value="Publish Date">Publish Date</option>
-                    <option value="Rating">Rating</option>
-                    <option value="Price">Price</option>
-                </select>
-                <br />
-                <select asp-for="SortOrder" onchange="this.form.submit();">
-                    @if ((Model.SortParametar.Equals("Title") || Model.SortParametar.Equals("Genre")))
-                    {
-                        <option value="Asc">Z - A</option>
-                        <option value="Desc">A - Z</option>
-                    }
-                    else if (Model.SortParametar.Equals("Publish Date"))
-                    {
-                        <option value="Asc">Fwd</option>
-                        <option value="Desc">Back</option>
-                    }
-                    else
-                    {
-                        <option value="Asc">Asc</option>
-                        <option value="Desc">Desc</option>
-                    }
-                </select>
-            </div>
-
-            <div>
-                <!--pretraga po naslovu-->
-                <label asp-for="SearchString">Search Book:</label>
-                <br />
-                <input asp-for="SearchString" class="p-0" />
-                <br />
-                <input type="submit" value="Search" onclick="this.form.submit();" class="p-0 btn btn-outline-warning btn-block" />
-            </div>
-            <div>
-                <!--pretraga po autorima-->
-                <label asp-for="SearchAuthor">Search Author:</label> 
-                <br />
-                <input asp-for="SearchAuthor" class="p-0" />
-                <br />
-                <input type="submit" value="Search" onclick="this.form.submit();" class="p-0 btn btn-outline-warning btn-block" />
-            </div>
-            <div>
-                <!--izdvajanje po zanru-->
-                <label asp-for="SelectedGenre">Genre:</label>
-                <br />
-                <select asp-for="SelectedGenre" asp-items="@Model.GenreList" onchange="this.form.submit();">
-                    <option value="">All</option>
-                </select>
-                <br />
-                <!--prikazi/sakrij dodatni info-->
-                <div class="d-flex justify-content-end">
-                    <div>
-                        <label asp-for="MoreInfo">More Info</label>
-                        <input asp-for="MoreInfo" onchange="this.form.submit();" />
+                <div>
+                    <!--pretraga po naslovu-->
+                    <label asp-for="SearchString">Search Book:</label>
+                    <br />
+                    <input asp-for="SearchString" class="p-0" />
+                    <br />
+                    <input type="submit" value="Search" onclick="this.form.submit();" class="p-0 btn btn-outline-warning btn-block" />
+                </div>
+                <div>
+                    <!--pretraga po autorima-->
+                    <label asp-for="SearchAuthor">Search Author:</label>
+                    <br />
+                    <input asp-for="SearchAuthor" class="p-0" />
+                    <br />
+                    <input type="submit" value="Search" onclick="this.form.submit();" class="p-0 btn btn-outline-warning btn-block" />
+                </div>
+                <div>
+                    <!--izdvajanje po zanru-->
+                    <label asp-for="SelectedGenre">Genre:</label>
+                    <br />
+                    <select asp-for="SelectedGenre" asp-items="@Model.GenreList" onchange="this.form.submit();">
+                        <option value="">All</option>
+                    </select>
+                    <br />
+                    <!--prikazi/sakrij dodatni info-->
+                    <div class="d-flex justify-content-end">
+                        <div>
+                            <label asp-for="MoreInfo">More Info</label>
+                            <input asp-for="MoreInfo" onchange="this.form.submit();" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+
+    <div class="d-flex bg-warning">
+        <!--nazivi kolona-->
+        <div style="flex: 0 0 5%" class="text-white text-center">ID</div>
+        @if (!Model.MoreInfo)
+        {
+            <div style="flex: 0 0 50%">Title</div>
+            <div style="flex: 0 0 41%">Authors</div>
+        }
+        else
+        {
+            <div style="flex: 0 0 37%">Title</div>
+            <div style="flex: 0 0 30%">Authors</div>
+            <div style="flex: 0 0 10%" class="text-light">Genre</div>
+            <div style="flex: 0 0 9%" class="text-light">publish date</div>
+            <div style="flex: 0 0 5%" class="text-light">rating</div>
+        }
+        <div style="flex: 0 0 10%">Price</div>
+    </div>
 </div>
-
-<div class="d-flex justify-content-between">
-    <div>
-        <a asp-page="Create">Create New</a>
-    </div>   
-</div>
-
-<br />
-
-<div class="d-flex bg-warning">
-    <!--nazivi kolona-->
-    <div style="flex: 0 0 5%" class="text-white text-center">ID</div>
-    @if (!Model.MoreInfo)
-    {
-        <div style="flex: 0 0 50%">Title</div>
-        <div style="flex: 0 0 41%">Authors</div>
-    }
-    else
-    {
-        <div style="flex: 0 0 37%">Title</div>
-        <div style="flex: 0 0 30%">Authors</div>
-        <div style="flex: 0 0 10%" class="text-light">Genre</div>
-        <div style="flex: 0 0 9%" class="text-light">publish date</div>
-        <div style="flex: 0 0 5%" class="text-light">rating</div>
-    }
-    <div style="flex: 0 0 10%">Price</div>
-</div>
-
 
 
 
@@ -114,9 +106,7 @@
     {
         string Authors = " ";
         Authors = String.Join(", ", b.BookAuthor.Select(a => a.Author.Name));
-
         <tr>
-
             <a asp-page="./Details" asp-route-id="@b.ID" class="d-flex linkModifier">
 
                 <div style="flex: 0 0 5%" class="text-center font-weight-bold">@b.ID</div>
@@ -138,9 +128,5 @@
                 <div style="flex: 0 0 5%" class="text-danger text-center">@b.Price</div>
             </a>
         </tr>
-
-
     }
-
-
 </table>

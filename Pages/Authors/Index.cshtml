@@ -5,56 +5,63 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="bg-white sticky-top">
+    <div class="jumbotron p-3 d-flex justify-content-between">
+        <h1 class="display-3">Authors</h1>
+        <form>
+            <div class="d-flex justify-content-end">
+                <div>
+                    <br />
+                    <input asp-for="SearchString" class="p-0" />
+                    <br />
+                    <input type="submit" value="Search" class="p-0 btn btn-outline-warning btn-block" onclick="this.form.submit();"/>
+                </div>
+                <div>
+                    <br />
+                    <div class="d-flex justify-content-end">
+                        <a asp-page="Create" class="p-0 btn btn-warning">Add Author</a>
+                    </div>
+                    <label asp-for="Unassigned">Unassigned Authors Included</label>
+                    <input asp-for="Unassigned" onchange="this.form.submit();" />
+                </div>
+            </div>
+        </form>
+    </div>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+    <div class="d-flex bg-warning">
+        <div style="flex: 0 0 25%" class="font-weight-bold">Name</div>
+        <div style="flex: 0 0 15%" class="text-white">Born</div>
+        <div style="flex: 0 0 40%" class="text-success">Colledge / University</div>
+        <div style="flex: 0 0 20%" class="text-white">Email</div>
+    </div>
+    
+</div>
+
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Author[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author[0].Born)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author[0].Colledge)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author[0].University)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Author[0].Email)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
-@foreach (var item in Model.Author) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Born)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Colledge)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.University)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var a in Model.Author)
+        {
+            string Date = a.Born.ToString("dd.MM.yyyy");
+            if (a.BookAuthor.Any() || Model.Unassigned)
+            {
+                <tr class="@(a.BookAuthor.Any() ? "" : "lightGreyBg")">
+
+                    <td>
+                        <a asp-page="./Details" asp-route-id="@a.ID" class="linkModifier">@a.Name</a>
+                    </td>
+                    <td>
+                        @Date
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => a.Colledge) / @Html.DisplayFor(modelItem => a.University)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => a.Email)
+                    </td>
+
+                </tr>
+            }
+
+        }
     </tbody>
 </table>

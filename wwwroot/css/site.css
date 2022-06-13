@@ -88,3 +88,7 @@ body {
     color: white;
     background-color: green;
 }
+
+.lightGreyBg{
+    background-color: hsl(0, 0%, 92%);
+}

@@ -5,13 +5,10 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<div class="jumbotron p-0 d-flex justify-content-between">
+    <h1 class="display-4 text-warning">Create Book</h1>
+</div>
 
-<h4>Book</h4>
-<hr />
-
-<!--class="row"-->
-<!--class="col-md-4"-->
 <div>
 
     <form method="post">
@@ -67,6 +64,7 @@
                 <!--Desno-->
                 New Author:
                 <br />
+                <br />
                 <div class="form-group">
                     <label asp-for="NewAuthorName" class="control-label">Name</label>
                     <input asp-for="NewAuthorName" class="form-control" />
@@ -91,15 +89,18 @@
         </div>
 
         <hr />
-        <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-primary" />
+        <div class="d-flex justify-content-between">
+            <div class="form-group">
+                <input type="submit" value="Create Book" class="btn btn-warning" />
+            </div>
+            <div>
+                <a asp-page="Index" class="btn btn-outline-warning">Back to List</a>
+            </div>
         </div>
+        
     </form>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

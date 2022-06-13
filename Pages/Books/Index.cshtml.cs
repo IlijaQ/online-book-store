@@ -21,6 +21,7 @@ namespace Online_Book_Store.Pages.Books
         }
 
         public IList<Book> Book { get;set; }
+        //
         public SelectList GenreList { get; set; }
         [BindProperty(SupportsGet = true)]
         public string SelectedGenre { get; set; }
@@ -34,9 +35,10 @@ namespace Online_Book_Store.Pages.Books
         public string SortParametar { get; set; } = "ID";
         [BindProperty(SupportsGet = true)]
         public string SortOrder { get; set; } = "Asc";
-        
+        //
         [BindProperty(SupportsGet = true)]
         public bool MoreInfo { get; set; }
+
         public async Task OnGetAsync()
         {
             

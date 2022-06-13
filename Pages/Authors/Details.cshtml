@@ -3,47 +3,114 @@
 
 @{
     ViewData["Title"] = "Details";
+    string BornDate = Model.Author.Born.ToString("dd.MM.yyyy");
 }
 
-<h1>Details</h1>
+<div class="jumbotron p-0 d-flex justify-content-between">
+    <h1 class="display-4">@Model.Author.Name</h1>
+</div>
 
 <div>
-    <h4>Author</h4>
-    <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Author.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Author.Name)
-        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Author.Born)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Author.Born)
+            @BornDate
         </dd>
+        <!------------------------------------------------------>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Author.Colledge)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Author.Colledge)
         </dd>
+        <!------------------------------------------------------>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Author.University)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Author.University)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Author.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Author.Email)
-        </dd>
+        <!------------------------------------------------------>
+
+        @if (Model.Author.Email != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Author.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Author.Email)
+            </dd>
+        }
+
     </dl>
 </div>
+<hr />
+
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Author.ID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    @if (Model.Author.BookAuthor.Any())
+    {
+        <p class="font-weight-bold">Books</p>
+        <div class="d-flex bg-warning">
+            <div style="flex: 0 0 5%" class="text-white text-center">ID</div>
+            <div style="flex: 0 0 45%">Title</div>
+            <div style="flex: 0 0 20%" class="text-light">Genre</div>
+            <div style="flex: 0 0 15%" class="text-light">publish date</div>
+            <div style="flex: 0 0 10%" class="text-light">rating</div>
+            <div style="flex: 0 0 5%">Price</div>
+        </div>
+
+        foreach(var b in Model.Author.BookAuthor.Select(b => b.Book))
+        {
+            string PublishDate = b.Publish_date.ToString("dd.MM.yyyy");
+            
+            <div>
+                <a asp-page="../Books/Details" asp-route-id="@b.ID" class="d-flex linkModifier">
+                    <div style="flex: 0 0 5%" class="text-center font-weight-bold">@b.ID</div>
+                    <div style="flex: 0 0 45%">@b.Title</div>
+                    <div style="flex: 0 0 20%">@b.Genre</div>
+                    <div style="flex: 0 0 15%">@PublishDate</div>
+                    <div style="flex: 0 0 10%" class="text-success">@b.Rating</div>
+                    <div style="flex: 0 0 5%" class="text-danger">@b.Price</div>
+                </a>
+            </div>
+        }
+        <br />
+    }
+    else
+    {
+        <p class="text-center text-secondary">This Author has no Books assigned</p>
+    }
+
+</div>
+
+
+
+
+<div class="d-flex justify-content-between">
+    <div><a asp-page="./Index" class="btn btn-primary bg-warning">Back to List</a></div>
+    <div>
+        <a asp-page="./Edit" asp-route-id="@Model.Author.ID" class="btn btn-warning">Edit</a>
+        @if (Model.Author.BookAuthor.Any())
+        {
+            <a asp-page="./Details" asp-route-id="@Model.Author.ID" asp-route-DeleteAttempt="true" class="btn btn-outline-secondary">Delete</a>
+        }
+        else
+        {
+            <a asp-page="./Delete" asp-route-id="@Model.Author.ID" class="btn btn-danger">Delete</a>
+        }
+
+    </div>
+
+</div>
+<div class="d-flex justify-content-end">
+    <div>
+        @if(Model.DeleteAttempt)
+        {
+            <p class="text-danger text-right">*Cannot delete Author while Book is assigned to him!</p>
+        }
+    </div>
 </div>
