@@ -13,7 +13,7 @@
     <form method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="d-flex justify-content-between">
-            <div>
+            <div class="ContentWidth50">
                 <!--Levo-->
                 <input type="hidden" asp-for="Book.ID" />
                 <div class="form-group">
@@ -46,16 +46,15 @@
                     <!--Book Additional Info-->
                     @if (Model.BookAddInfo == null)
                     {
+                        <br />
                         <a asp-page="../Book_aditional_info/Create" asp-route-ReturnId="@Model.Book.ID" asp-route-BookTitle="@Model.Book.Title" class="btn btn-outline-secondary">Add Description</a>
-
                     }
                     else
                     {
-                        <div>Description: @Model.BookAddInfo.Description</div>
-                        <br />
+                        <p class="AdditionalInfo">Description: @Model.BookAddInfo.Description</p>
                         <a asp-page="../Book_aditional_info/Edit" asp-route-id="@Model.BookAddInfo.ID" asp-route-BookTitle="@Model.Book.Title" class="btn btn-outline-secondary">Edit Description</a>
                     }
-                    <br />
+
                 </div>
             </div>
             <div>
@@ -87,9 +86,9 @@
                 <a asp-page="./Index" class="btn btn-outline-warning">Back to List</a>
             </div>
         </div>
-        
+
     </form>
-</div>   
+</div>
 
 
 @section Scripts {

@@ -20,13 +20,13 @@ else
     }
     else
     {
-        <p>Edit @Model.BookTitle description</p>
+        <p>Edit <span class="text-warning">@Model.BookTitle</span> description</p>
     }
 
     <hr />
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Book_additional_info.ID" />
@@ -34,14 +34,14 @@ else
 
                 <div class="form-group">
                     <label asp-for="Book_additional_info.Description" class="control-label"></label>
-                    <input asp-for="Book_additional_info.Description" class="form-control" />
+                    <textarea asp-for="Book_additional_info.Description" class="form-control" rows="7"></textarea>
                     <span asp-validation-for="Book_additional_info.Description" class="text-danger"></span>
 
                     <br />
                     <input type="submit" value="Remove Description" asp-page-handler="Delete" class="btn btn-outline-secondary" />
                 </div>
 
-                <br />
+                <hr />
                 <div class="d-flex justify-content-between">
                     <div>
                         <input type="submit" value="Save Changes" asp-page-handler="Save" class="btn btn-outline-warning" />

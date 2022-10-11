@@ -71,11 +71,12 @@ body {
 }
 
 .disclaimer {
-    position: absolute;
-    bottom: 45px;
-    left: 21%;
-    color: lightslategray;
+    color: #b8b8b8;
     font-size: 12px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    top: -34px;
 }
 
 .linkModifier {
@@ -96,3 +97,21 @@ body {
     max-height: 400px;
     overflow: scroll;
 }
+
+.ContentWidth50 {
+    width: 50%;
+}
+
+.AdditionalInfo {
+    max-height: 3.3em;
+    overflow: hidden;
+}
+
+.FormGuide {
+    color: #b8b8b8;
+}
+
+.descOverflow {
+    max-height: 1.6em;
+}
+
