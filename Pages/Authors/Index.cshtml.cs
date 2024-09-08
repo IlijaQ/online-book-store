@@ -28,13 +28,12 @@ namespace Online_Book_Store.Pages.Authors
         public async Task OnGetAsync()
         {
             var authors = _context.Author
-                .Include(ba => ba.BookAuthor)//helps determin wheather Author has a Book assigned or not
+                .Include(ba => ba.BookAuthor)
                 .AsNoTracking();
 
             if (!String.IsNullOrEmpty(SearchString))
             {
-                SearchString = SearchString.ToLower();
-                authors = authors.Where(a => a.Name.ToLower().Contains(SearchString));
+                authors = authors.Where(a => a.Name.Contains(SearchString));
             }
 
             Author = await authors.ToListAsync();

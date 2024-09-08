@@ -102,10 +102,6 @@ body {
     width: 50%;
 }
 
-.ContentWidth25 {
-    width: 25%;
-}
-
 .AdditionalInfo {
     max-height: 3.3em;
     overflow: hidden;
@@ -114,8 +110,3 @@ body {
 .FormGuide {
     color: #b8b8b8;
 }
-
-.descOverflow {
-    max-height: 1.6em;
-}
-

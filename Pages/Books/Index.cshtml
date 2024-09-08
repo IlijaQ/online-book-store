@@ -11,7 +11,7 @@
         <form>
             <div class="d-flex justify-content-end">
                 <div>
-                    <!--sorting results-->
+                    <!--sortiranje-->
                     <label asp-for="SortParametar">Sort by:</label>
                     <br />
                     <select asp-for="SortParametar" onchange="this.form.submit();">
@@ -43,7 +43,7 @@
                 </div>
 
                 <div>
-                    <!--search by book name-->
+                    <!--pretraga po naslovu-->
                     <label asp-for="SearchString">Search Book:</label>
                     <br />
                     <input asp-for="SearchString" class="p-0" />
@@ -51,7 +51,7 @@
                     <input type="submit" value="Search" onclick="this.form.submit();" class="p-0 btn btn-outline-warning btn-block" />
                 </div>
                 <div>
-                    <!--search by Author-->
+                    <!--pretraga po autorima-->
                     <label asp-for="SearchAuthor">Search Author:</label>
                     <br />
                     <input asp-for="SearchAuthor" class="p-0" />
@@ -59,14 +59,14 @@
                     <input type="submit" value="Search" onclick="this.form.submit();" class="p-0 btn btn-outline-warning btn-block" />
                 </div>
                 <div>
-                    <!--show scpecific genre-->
+                    <!--izdvajanje po zanru-->
                     <label asp-for="SelectedGenre">Genre:</label>
                     <br />
                     <select asp-for="SelectedGenre" asp-items="@Model.GenreList" onchange="this.form.submit();">
                         <option value="">All</option>
                     </select>
                     <br />
-                    <!--show/hide additional info (genre, publich data and rating)-->
+                    <!--prikazi/sakrij dodatni info-->
                     <div class="d-flex justify-content-end">
                         <div>
                             <label asp-for="MoreInfo">More Info</label>
@@ -79,7 +79,7 @@
     </div>
 
     <div class="d-flex bg-warning">
-        <!--column names-->
+        <!--nazivi kolona-->
         <div style="flex: 0 0 5%" class="text-white text-center">ID</div>
         @if (!Model.MoreInfo)
         {
@@ -98,28 +98,17 @@
     </div>
 </div>
 
-<!--info message and image that appears if search has no results-->
-@if (Model.Book.Count == 0)
-{
-    <div class="d-flex justify-content-between">
-        <div class="text-secondary">
-            <h3>Oops, nothing found</h3>
-            <p>check if name is typed correctly, try typing part of the name</p>
-        </div>
 
-        <img src="~/BookSearching.png" />
-    </div>
-}
 
 <table>
-    <!--table data-->
+    <!--podaci-->
     @foreach (Models.Book b in Model.Book)
     {
         string Authors = " ";
         Authors = String.Join(", ", b.BookAuthor.Select(a => a.Author.Name));
         <tr>
             <a asp-page="./Details" asp-route-id="@b.ID" class="d-flex linkModifier">
-                <!--scaling each column, differs when MoreInfo == true-->
+
                 <div style="flex: 0 0 5%" class="text-center font-weight-bold">@b.ID</div>
                 @if (!Model.MoreInfo)
                 {

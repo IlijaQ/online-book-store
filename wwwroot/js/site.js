@@ -1,26 +1,4 @@
-﻿console.log(`
-|   |        |  |
-|___|   __   |  |   __
-|   |  |__|  |  |  |  |
-|   |  |__   |  |  |__|
+﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+// for details on configuring this project to bundle and minify static web assets.
 
-`);
-
-let currentWeekDay = new Date().toLocaleString('en-US', { weekday: 'long' });
-let timeOfDay = null;
-let currentHour = new Date().getHours();
-
-if (currentHour < 12) {
-    timeOfDay = 'morning';
-}
-else if (currentHour < 20) {
-    timeOfDay = 'afternoon';
-}
-else if (currentHour < 22) {
-    timeOfDay = 'evening';
-}
-else {
-    timeOfDay = 'night';
-}
-
-console.log(`How are you on this fine ${currentWeekDay} ${timeOfDay}?`);
+// Write your Javascript code.
