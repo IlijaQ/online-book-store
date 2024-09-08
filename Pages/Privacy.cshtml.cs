@@ -10,6 +10,8 @@ namespace Online_Book_Store.Pages
 {
     public class PrivacyModel : PageModel
     {
+        private string ContactEmail { get; set; }
+
         private readonly ILogger<PrivacyModel> _logger;
 
         public PrivacyModel(ILogger<PrivacyModel> logger)
@@ -19,6 +21,17 @@ namespace Online_Book_Store.Pages
 
         public void OnGet()
         {
+        }
+
+        public IActionResult OnPost()
+        {
+            ContactEmail = GetEmail();
+            return Redirect($"mailto:{ContactEmail}");
+        }
+
+        private string GetEmail()
+        {
+            return "kujovicilija@gmail.com";
         }
     }
 }
