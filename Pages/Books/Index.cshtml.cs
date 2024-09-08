@@ -50,20 +50,25 @@ namespace Online_Book_Store.Pages.Books
             IQueryable<string> genreQuery = from g in _context.Book
                                             select g.Genre;
 
+            //Search and/or select distinct genre
             if (!String.IsNullOrEmpty(SelectedGenre))
             {
                 books = books.Where(b => b.Genre == SelectedGenre);
             }
             if (!String.IsNullOrEmpty(SearchString))
             {
-                books = books.Where(b => b.Title.Contains(SearchString));
+                SearchString = SearchString.ToLower();
+                books = books.Where(b => b.Title.ToLower().Contains(SearchString));
             }
             if (!String.IsNullOrEmpty(SearchAuthor))
             {
-                books = books.Where(b => b.BookAuthor.Any(a => a.Author.Name.Contains(SearchAuthor)));
+                SearchAuthor = SearchAuthor.ToLower();
+                books = books.Where(b => b.BookAuthor.Any(a => a.Author.Name.ToLower().Contains(SearchAuthor)));
             }
 
-            if(SortOrder.Equals("Desc"))
+            //sort by
+            //ascending or descending
+            if (SortOrder.Equals("Desc"))
             {
                 switch (SortParametar)
                 {

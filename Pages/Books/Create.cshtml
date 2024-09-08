@@ -15,7 +15,7 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
             <div class="col-md-6">
-                <!--Levo-->
+                <!--Left section - Book info (not including Authors)-->
                 <div class="form-group">
                     <label asp-for="Book.Title" class="control-label">Title</label>
                     <input asp-for="Book.Title" class="form-control" />
@@ -43,12 +43,25 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="BookAdditionalInfo.Description" class="control-label">Description</label>
-                    <input asp-for="BookAdditionalInfo.Description" class="form-control" />
-                    <span asp-validation-for="Book.Price" class="text-danger"></span>
+                    <textarea asp-for="BookAdditionalInfo.Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="BookAdditionalInfo.Description" class="text-danger"></span>
+                </div>
+                <!------------------------------------------------------------------------------->
+                <div>
+                    <hr />
+                    <div class="d-flex justify-content-between">
+                        <div class="form-group">
+                            <input type="submit" value="Create Book" class="btn btn-warning" />
+                        </div>
+                        <div>
+                            <a asp-page="Index" class="btn btn-outline-warning">Back to List</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
             <div class="col-md-3">
-                <!--Centar-->
+                <!--Middle section - list of existing Authors-->
                 Select Author:
                 <div class="AuthorList">
                     <br />
@@ -64,7 +77,7 @@
                 <div class="FormGuide">if desired Author is not on the list fill in the New Author form</div>
             </div>
             <div class="col-md-3">
-                <!--Desno-->
+                <!--Right section - Form for new Author-->
                 New Author:
                 <br />
                 <br />
@@ -88,16 +101,6 @@
                     <label asp-for="NewAuthorEmail" class="control-label">Email</label>
                     <input asp-for="NewAuthorEmail" class="form-control" />
                 </div>
-            </div>
-        </div>
-
-        <hr />
-        <div class="d-flex justify-content-between">
-            <div class="form-group">
-                <input type="submit" value="Create Book" class="btn btn-warning" />
-            </div>
-            <div>
-                <a asp-page="Index" class="btn btn-outline-warning">Back to List</a>
             </div>
         </div>
 

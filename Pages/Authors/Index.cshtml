@@ -9,17 +9,18 @@
     <div class="jumbotron p-3 d-flex justify-content-between">
         <h1 class="display-3">Authors</h1>
         <form>
+            <!--top-right interface-->
             <div class="d-flex justify-content-end">
-                <div>
+                <div style="margin-right: 7px;">
                     <br />
-                    <input asp-for="SearchString" class="p-0" />
+                    <input asp-for="SearchString" class="p-0" placeholder="Search Author" />
                     <br />
-                    <input type="submit" value="Search" class="p-0 btn btn-outline-warning btn-block" onclick="this.form.submit();"/>
+                    <input type="submit" value="Search" class="p-0 btn btn-outline-warning btn-block" onclick="this.form.submit();" />
                 </div>
                 <div>
                     <br />
                     <div class="d-flex justify-content-end">
-                        <a asp-page="Create" class="p-0 btn btn-warning">Add Author</a>
+                        <a asp-page="Create" class="p-0 btn btn-warning btn-block">Add Author</a>
                     </div>
                     <label asp-for="Unassigned">Unassigned Authors Included</label>
                     <input asp-for="Unassigned" onchange="this.form.submit();" />
@@ -30,24 +31,38 @@
 
     <div class="d-flex bg-warning">
         <div style="flex: 0 0 25%" class="font-weight-bold">Name</div>
-        <div style="flex: 0 0 15%" class="text-white">Born</div>
-        <div style="flex: 0 0 40%" class="text-success">Colledge / University</div>
+        <div style="flex: 0 0 12%" class="text-white">Born</div>
+        <div style="flex: 0 0 28%" class="text-success">Colledge / University</div>
         <div style="flex: 0 0 20%" class="text-white">Email</div>
     </div>
-    
+
 </div>
+
+<!--info message and image that appears if search has no results-->
+@if (Model.Author.Count == 0)
+{
+    <div class="d-flex justify-content-between">
+        <div class="text-secondary">
+            <h3>Oops, nothing found</h3>
+            <p>check if name is typed correctly, try typing part of the name</p>
+        </div>
+        
+        <img src="~/BookSearching.png" />
+    </div>
+}
 
 <table class="table">
     <tbody>
         @foreach (var a in Model.Author)
         {
-            string Date = a.Born.ToString("dd.MM.yyyy");
+
+            string Date = a.Born.ToString("dd.MM.yyyy.");//formating DateTime
             if (a.BookAuthor.Any() || Model.Unassigned)
             {
                 <tr class="@(a.BookAuthor.Any() ? "" : "lightGreyBg")">
 
                     <td>
-                        <a asp-page="./Details" asp-route-id="@a.ID" class="linkModifier">@a.Name</a>
+                        @a.Name
                     </td>
                     <td>
                         @Date
@@ -58,9 +73,13 @@
                     <td>
                         @Html.DisplayFor(modelItem => a.Email)
                     </td>
+                    <td>
+                        <a asp-page="./Details" asp-route-id="@a.ID" class="btn btn-outline-success btn-sm">Details</a>
+                    </td>
 
                 </tr>
             }
+
 
         }
     </tbody>
