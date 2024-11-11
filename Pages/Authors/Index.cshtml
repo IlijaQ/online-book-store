@@ -6,23 +6,25 @@
 }
 
 <div class="bg-white sticky-top">
-    <div class="jumbotron p-3 d-flex justify-content-between">
-        <h1 class="display-3">Authors</h1>
+    <div class="jumbotron p-3">
         <form>
-            <!--top-right interface-->
-            <div class="d-flex justify-content-end">
-                <div style="margin-right: 7px;">
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <h1 class="display-3">Authors</h1>
+                </div>
+                <!-- Authors search bar and search button -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
                     <br />
-                    <input asp-for="SearchString" class="p-0" placeholder="Search Author" />
-                    <br />
+                    <input asp-for="SearchString" class="p-0" style="width: 100%; padding-bottom: 2px;" placeholder="Search Author" />
                     <input type="submit" value="Search" class="p-0 btn btn-outline-warning btn-block" onclick="this.form.submit();" />
                 </div>
-                <div>
-                    <br />
-                    <div class="d-flex justify-content-end">
+                <!-- New Author button and checkbox -->
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div>
+                        <br />
                         <a asp-page="Create" class="p-0 btn btn-warning btn-block">Add Author</a>
                     </div>
-                    <label asp-for="Unassigned">Unassigned Authors Included</label>
+                    <label asp-for="Unassigned">Unassigned Authors</label>
                     <input asp-for="Unassigned" onchange="this.form.submit();" />
                 </div>
             </div>
@@ -30,10 +32,9 @@
     </div>
 
     <div class="d-flex bg-warning">
-        <div style="flex: 0 0 25%" class="font-weight-bold">Name</div>
-        <div style="flex: 0 0 12%" class="text-white">Born</div>
-        <div style="flex: 0 0 28%" class="text-success">Colledge / University</div>
-        <div style="flex: 0 0 20%" class="text-white">Email</div>
+        <div style="flex: 0 0 26%" class="font-weight-bold">Name</div>
+        <div style="flex: 0 0 25%" class="font-weight-bold text-secondary">Born</div>
+        <div style="flex: 0 0 50%" class="text-primary">Colledge / University</div>
     </div>
 
 </div>
@@ -41,13 +42,14 @@
 <!--info message and image that appears if search has no results-->
 @if (Model.Author.Count == 0)
 {
-    <div class="d-flex justify-content-between">
-        <div class="text-secondary">
+    <div class="row">
+        <div class="col-lg-7 col-md-6 col-sm-12 text-secondary">
             <h3>Oops, nothing found</h3>
             <p>check if name is typed correctly, try typing part of the name</p>
         </div>
-        
-        <img src="~/BookSearching.png" />
+        <div class="col-lg-5 col-md-6 col-sm-12">
+            <img src="~/BookSearching.png" />
+        </div>
     </div>
 }
 
@@ -55,32 +57,25 @@
     <tbody>
         @foreach (var a in Model.Author)
         {
-
             string Date = a.Born.ToString("dd.MM.yyyy.");//formating DateTime
+            string backgroundColor = a.BookAuthor.Any() ? string.Empty : "lightGreyBg";
             if (a.BookAuthor.Any() || Model.Unassigned)
             {
-                <tr class="@(a.BookAuthor.Any() ? "" : "lightGreyBg")">
-
-                    <td>
+                <div class="row @backgroundColor ContentWidth100Centered" style="border-bottom: 1px solid; padding: 2px 1px">
+                    <div class="col-lg-3 col-sm-12">
                         @a.Name
-                    </td>
-                    <td>
+                    </div>
+                    <div class="col-lg-3 col-sm-12 text-secondary">
                         @Date
-                    </td>
-                    <td>
+                    </div>
+                    <div class="col-lg-5 col-sm-10 text-primary">
                         @Html.DisplayFor(modelItem => a.Colledge) / @Html.DisplayFor(modelItem => a.University)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => a.Email)
-                    </td>
-                    <td>
+                    </div>
+                    <div class="col-lg-1 col-sm-1 @backgroundColor">
                         <a asp-page="./Details" asp-route-id="@a.ID" class="btn btn-outline-success btn-sm">Details</a>
-                    </td>
-
-                </tr>
+                    </div>
+                </div>
             }
-
-
         }
     </tbody>
 </table>

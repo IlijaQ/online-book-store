@@ -76,7 +76,7 @@ body {
     width: 100%;
     text-align: center;
     position: relative;
-    top: -34px;
+    top: -32px;
 }
 
 .linkModifier {
@@ -96,6 +96,11 @@ body {
 .AuthorList{
     max-height: 400px;
     overflow: scroll;
+}
+
+.ContentWidth100Centered {
+    width: 100%;
+    margin: 0 auto;
 }
 
 .ContentWidth50 {
