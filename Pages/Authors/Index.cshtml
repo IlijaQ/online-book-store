@@ -15,7 +15,7 @@
                 <!-- Authors search bar and search button -->
                 <div class="col-lg-3 col-md-6 col-sm-12">
                     <br />
-                    <input asp-for="SearchString" class="p-0" style="width: 100%; padding-bottom: 2px;" placeholder="Search Author" />
+                    <input asp-for="SearchString" class="p-0" style="width: 100%" placeholder="Search Author" />
                     <input type="submit" value="Search" class="p-0 btn btn-outline-warning btn-block" onclick="this.form.submit();" />
                 </div>
                 <!-- New Author button and checkbox -->
@@ -32,7 +32,7 @@
     </div>
 
     <div class="d-flex bg-warning">
-        <div style="flex: 0 0 26%" class="font-weight-bold">Name</div>
+        <div style="flex: 0 0 35%" class="font-weight-bold">Name</div>
         <div style="flex: 0 0 25%" class="font-weight-bold text-secondary">Born</div>
         <div style="flex: 0 0 50%" class="text-primary">Colledge / University</div>
     </div>
@@ -61,21 +61,20 @@
             string backgroundColor = a.BookAuthor.Any() ? string.Empty : "lightGreyBg";
             if (a.BookAuthor.Any() || Model.Unassigned)
             {
-                <div class="row @backgroundColor ContentWidth100Centered" style="border-bottom: 1px solid; padding: 2px 1px">
-                    <div class="col-lg-3 col-sm-12">
-                        @a.Name
+                <a asp-page="./Details" asp-route-id="@a.ID" class="d-flex linkModifier">
+                    <div class="row @backgroundColor ContentWidth100Centered" style="border-bottom: 1px solid; padding: 2px 1px">
+                        <div class="col-lg-4 col-sm-12">
+                            @a.Name
+                        </div>
+                        <div class="col-lg-3 col-sm-12 text-secondary">
+                            @Date
+                        </div>
+                        <div class="col-lg-5 col-sm-12 text-primary">
+                            @Html.DisplayFor(modelItem => a.Colledge) / @Html.DisplayFor(modelItem => a.University)
+                        </div>
                     </div>
-                    <div class="col-lg-3 col-sm-12 text-secondary">
-                        @Date
-                    </div>
-                    <div class="col-lg-5 col-sm-10 text-primary">
-                        @Html.DisplayFor(modelItem => a.Colledge) / @Html.DisplayFor(modelItem => a.University)
-                    </div>
-                    <div class="col-lg-1 col-sm-1 @backgroundColor">
-                        <a asp-page="./Details" asp-route-id="@a.ID" class="btn btn-outline-success btn-sm">Details</a>
-                    </div>
-                </div>
+                </a>
             }
         }
-    </tbody>
+     </tbody>
 </table>
