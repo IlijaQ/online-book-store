@@ -55,14 +55,21 @@
 
 <table class="table">
     <tbody>
+        @{ 
+            int rowCount = Model.Author.Count();
+            int counter = 1;
+        }
+
         @foreach (var a in Model.Author)
         {
-            string Date = a.Born.ToString("dd.MM.yyyy.");//formating DateTime
+            string Date = a.Born.ToString("dd.MM.yyyy.");
             string backgroundColor = a.BookAuthor.Any() ? string.Empty : "lightGreyBg";
             if (a.BookAuthor.Any() || Model.Unassigned)
             {
-                <a asp-page="./Details" asp-route-id="@a.ID" class="d-flex linkModifier">
-                    <div class="row @backgroundColor ContentWidth100Centered" style="border-bottom: 1px solid; padding: 2px 1px">
+                string LowerBorder = counter == rowCount ? "" : "border-bottom: 1px solid;";
+
+                <a asp-page="./Details" asp-route-id="@a.ID" class="d-flex">
+                    <div class="row @backgroundColor linkModifier ContentWidth100Centered" style="@LowerBorder padding: 2px 1px">
                         <div class="col-lg-4 col-sm-12">
                             @a.Name
                         </div>
@@ -75,6 +82,8 @@
                     </div>
                 </a>
             }
+
+            counter++;
         }
-     </tbody>
+    </tbody>
 </table>

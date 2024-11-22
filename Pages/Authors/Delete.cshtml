@@ -6,49 +6,46 @@
     string Date = Model.Author.Born.ToString("dd.MM.yyyy");
 }
 
-<div class="jumbotron p-0 d-flex justify-content-between">
-    <h1 class="display-4 text-danger">Remove</h1>
-    <h2 class="display-4">@Model.Author.Name</h2>
+<div class="jumbotron p-2">
+    <h1 class="display-4"><span class="text-danger">Remove </span><span class="text-secondary">@Model.Author.Name</span></h1>
 </div>
 
 <div>
-    <dl class="row">
-        <dt class="col-sm-2">
+    <dl >
+        <dt>
             @Html.DisplayNameFor(model => model.Author.ID)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Author.ID)
         </dd>
-        <dt class="col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Author.Born)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Date
         </dd>
-        <dt class="col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Author.Colledge)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Author.Colledge)
         </dd>
-        <dt class="col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Author.University)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Author.University)
         </dd>
         @if (Model.Author.Email != null)
         {
-            <dt class="col-sm-2">
+            <dt>
                 @Html.DisplayNameFor(model => model.Author.Email)
             </dt>
-            <dd class="col-sm-10">
+            <dd>
                 @Html.DisplayFor(model => model.Author.Email)
             </dd>
         }
-
     </dl>
-
 </div>
 
 <hr />

@@ -5,16 +5,15 @@
     ViewData["Title"] = "Create";
 }
 
-<div class="jumbotron p-0 d-flex justify-content-between">
+<div class="jumbotron p-2">
     <h1 class="display-4 text-warning">Create Book</h1>
 </div>
 
 <div>
-
     <form method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <!--Left section - Book info (not including Authors)-->
                 <div class="form-group">
                     <label asp-for="Book.Title" class="control-label">Title</label>
@@ -46,7 +45,7 @@
                     <textarea asp-for="BookAdditionalInfo.Description" class="form-control" rows="3"></textarea>
                     <span asp-validation-for="BookAdditionalInfo.Description" class="text-danger"></span>
                 </div>
-                <!------------------------------------------------------------------------------->
+                
                 <div>
                     <hr />
                     <div class="d-flex justify-content-between">
@@ -60,7 +59,7 @@
                 </div>
             </div>
             
-            <div class="col-md-3">
+            <div class="col-lg-3 col-md-6 col-sm-12">
                 <!--Middle section - list of existing Authors-->
                 Select Author:
                 <div class="AuthorList">
@@ -76,37 +75,39 @@
                 </div>
                 <div class="FormGuide">if desired Author is not on the list fill in the New Author form</div>
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-3 col-md-12 col-sm-12">
                 <!--Right section - Form for new Author-->
-                New Author:
-                <br />
-                <br />
-                <div class="form-group">
-                    <label asp-for="NewAuthorName" class="control-label">Name</label>
-                    <input asp-for="NewAuthorName" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="NewAuthorBorn" class="control-label">Born</label>
-                    <input asp-for="NewAuthorBorn" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="NewAuthorColledge" class="control-label">Colledge</label>
-                    <input asp-for="NewAuthorColledge" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="NewAuthorUniversity" class="control-label">University</label>
-                    <input asp-for="NewAuthorUniversity" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="NewAuthorEmail" class="control-label">Email</label>
-                    <input asp-for="NewAuthorEmail" class="form-control" />
+                <div class="d-flex justify-content-end">
+                    <div class="w-100">
+                        New Author:
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label asp-for="NewAuthorName" class="control-label">Name</label>
+                            <input asp-for="NewAuthorName" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NewAuthorBorn" class="control-label">Born</label>
+                            <input asp-for="NewAuthorBorn" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NewAuthorColledge" class="control-label">Colledge</label>
+                            <input asp-for="NewAuthorColledge" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NewAuthorUniversity" class="control-label">University</label>
+                            <input asp-for="NewAuthorUniversity" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="NewAuthorEmail" class="control-label">Email</label>
+                            <input asp-for="NewAuthorEmail" class="form-control" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </form>
 </div>
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

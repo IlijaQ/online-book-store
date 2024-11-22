@@ -6,12 +6,18 @@
 }
 
 <div class="bg-white sticky-top">
-    <div class="jumbotron p-3">
-        
+    <div class="jumbotron p-2">
         <form>
             <div class="row">
                 <div class="col-lg-4 col-md-12 col-sm-12">
-                    <h6 class="display-4">Library</h6>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <a asp-page="./Create" class="p-1 btn btn-warning">Create New</a>
+                        </div>
+                        <div>
+                            Search Existing Books:
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-2 col-md-6 col-sm-6">
                     <!--sorting results-->
@@ -82,7 +88,7 @@
         {
             <div class="row ContentWidth100Centered" >
                 <div class="col-lg-5 col-md-6 col-sm-12">
-                    ID <span class="font-weight-bold">Title</span>
+                    <span class="font-weight-bold">ID</span> Title
                 </div>
                 <div class="col-lg-5 col-md-6 col-sm-12">
                     Authors
@@ -104,7 +110,7 @@
         {
             <div class="row ContentWidth100Centered">
                 <div class="col-lg-5 col-md-6 col-sm-12">
-                    ID <span class="font-weight-bold">Title</span>
+                    <span class="font-weight-bold">ID</span> Title
                 </div>
                 <div class="col-lg-5 col-md-6 col-sm-12">
                     Authors
@@ -134,22 +140,26 @@
 }
 
 <table>
-    <!--table data-->
+    @{ 
+        int rowCount = Model.Book.Count();
+        int counter = 1;
+    }
+
     @foreach (Models.Book b in Model.Book)
     {
-
         string Authors = " ";
         Authors = String.Join(", ", b.BookAuthor.Select(a => a.Author.Name));
-        
+        string LowerBorder = counter == rowCount ? "" : "border-bottom: 1px solid;";
+
         <tr>
             @if (Model.MoreInfo)
             {
                 string Date = b.Publish_date.ToString("dd.MM.yyyy.");
 
                 <a asp-page="./Details" asp-route-id="@b.ID" class="d-flex linkModifier">
-                    <div class="row ContentWidth100Centered" style="border-bottom: 1px solid; padding: 2px 1px">
+                    <div class="row ContentWidth100Centered" style="@LowerBorder padding: 2px 1px">
                         <div class="col-lg-5 col-md-6 col-sm-12">
-                            @b.ID <span class="font-weight-bold">@b.Title</span>
+                            <span class="font-weight-bold">@b.ID</span> @b.Title
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             @Authors
@@ -171,9 +181,9 @@
             else
             {
                 <a asp-page="./Details" asp-route-id="@b.ID" class="d-flex linkModifier">
-                    <div class="row ContentWidth100Centered" style="border-bottom: 1px solid; padding: 2px 1px">
+                    <div class="row ContentWidth100Centered" style="@LowerBorder padding: 2px 1px">
                         <div class="col-lg-5 col-md-6 col-sm-12">
-                            @b.ID <span class="font-weight-bold">@b.Title</span>
+                            <span class="font-weight-bold">@b.ID</span> @b.Title
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
                             @Authors
@@ -188,5 +198,7 @@
                 </a>
             }
         </tr>
+
+        counter++;
     }
 </table>

@@ -11,56 +11,58 @@
 
 @if (!Model.AuthorCreated)
 {
-    
-        <div class="ContentWidth50">
-            <form method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Author.Name" class="control-label"></label>
-                    <input asp-for="Author.Name" class="form-control" />
-                    <span asp-validation-for="Author.Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Author.Born" class="control-label"></label>
-                    <input asp-for="Author.Born" class="form-control" />
-                    <span asp-validation-for="Author.Born" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Author.Colledge" class="control-label"></label>
-                    <input asp-for="Author.Colledge" class="form-control" />
-                    <span asp-validation-for="Author.Colledge" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Author.University" class="control-label"></label>
-                    <input asp-for="Author.University" class="form-control" />
-                    <span asp-validation-for="Author.University" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Author.Email" class="control-label"></label>
-                    <input asp-for="Author.Email" class="form-control" />
-                    <span asp-validation-for="Author.Email" class="text-danger"></span>
-                </div>
-
-                <hr />
-                <div class="d-flex justify-content-between">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
-                        <input type="submit" value="Add Author" class="btn btn-warning" />
+                        <label asp-for="Author.Name" class="control-label"></label>
+                        <input asp-for="Author.Name" class="form-control" />
+                        <span asp-validation-for="Author.Name" class="text-danger"></span>
                     </div>
-                    <div>
-
-                        @if (Model.ReturnId == null)
-                        {
-                            <a asp-page="Index" class="btn btn-outline-warning">Back to List</a>
-                        }
-                        else
-                        {
-                            <a asp-page="../Books/Edit" asp-route-id="@Model.ReturnId" class="btn btn-outline-warning">Back to Book Edit</a>
-                        }
+                    <div class="form-group">
+                        <label asp-for="Author.Born" class="control-label"></label>
+                        <input asp-for="Author.Born" class="form-control" />
+                        <span asp-validation-for="Author.Born" class="text-danger"></span>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label asp-for="Author.Colledge" class="control-label"></label>
+                        <input asp-for="Author.Colledge" class="form-control" />
+                        <span asp-validation-for="Author.Colledge" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Author.University" class="control-label"></label>
+                        <input asp-for="Author.University" class="form-control" />
+                        <span asp-validation-for="Author.University" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Author.Email" class="control-label"></label>
+                        <input asp-for="Author.Email" class="form-control" />
+                        <span asp-validation-for="Author.Email" class="text-danger"></span>
+                    </div>
+
+                    <hr />
+                    <div class="d-flex justify-content-between">
+                        <div class="form-group">
+                            <input type="submit" value="Add Author" class="btn btn-warning" />
+                        </div>
+                        <div>
+
+                            @if (Model.ReturnId == null)
+                            {
+                                <a asp-page="Index" class="btn btn-outline-warning">Back to List</a>
+                            }
+                            else
+                            {
+                                <a asp-page="../Books/Edit" asp-route-id="@Model.ReturnId" class="btn btn-outline-warning">Back to Book Edit</a>
+                            }
+                        </div>
+                    </div>
 
 
-            </form>
+                </form>
+            </div>
+            
         </div>
 }
 else
