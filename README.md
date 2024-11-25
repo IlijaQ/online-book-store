@@ -1,8 +1,7 @@
 # online-book-store
-CRUD with many-to-many table relations playground
-
-Written in C# ASP.NET Core Razor Pages.
-Database created using Microsoft Entity Framework - Code First approach
+A web application in ASP.NET for browsing books and authors, adding new ones, updating and removing them.
+The Database was created using the code-first approach with Microsoft Entity Framework and includes many-to
+many relations. Although the site is primarly designed for desktop use, it is optimized for mobile devices as well.
 
 Database ER model
 ![Database diagram](https://github.com/IlijaQ/online-book-store/blob/main/wwwroot/DbShema.png)
