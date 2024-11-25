@@ -12,10 +12,12 @@ Main project features:
 - [x] View Books / Authors list and select entry to get additional info
 - [x] Update Books and/or Authors
 - [x] Delete Books and/or Authors
+- [x] Site fully optimized for mobile devices (last screenshot)
 
-Screenshots and manual
+Screenshots:
 ![Book Index](https://github.com/IlijaQ/online-book-store/blob/main/wwwroot/ScreenShoots/BookIndex.png)
 ![Book Details](https://github.com/IlijaQ/online-book-store/blob/main/wwwroot/ScreenShoots/BookDetailis.png)
 ![Book Edit](https://github.com/IlijaQ/online-book-store/blob/main/wwwroot/ScreenShoots/BookAuthorEdit.png)
 ![Book Create](https://github.com/IlijaQ/online-book-store/blob/main/wwwroot/ScreenShoots/CreateBook.png)
 ![Author Index](https://github.com/IlijaQ/online-book-store/blob/main/wwwroot/ScreenShoots/AuthorsIndexDetails.png)
+![Mobile View](https://github.com/IlijaQ/online-book-store/blob/main/wwwroot/ScreenShoots/MobileView.png)
